@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "doc.go",
+        "errors.go",
+        "halfclose.go",
+        "tcpkeepalive.go",
+        "tls.go",
+        "v4util.go",
+        "x.go",
+    ],
+    importmap = "github.com/atpons/straightforward/vendor/github.com/cybozu-go/netutil",
+    importpath = "github.com/cybozu-go/netutil",
+    visibility = ["//visibility:public"],
+    deps = ["//vendor/golang.org/x/net/netutil:go_default_library"],
+)

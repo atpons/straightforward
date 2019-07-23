@@ -1,0 +1,38 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "default.go",
+        "doc.go",
+        "env.go",
+        "exec.go",
+        "graceful.go",
+        "graceful_unix.go",
+        "graceful_windows.go",
+        "http.go",
+        "http_17.go",
+        "idgen.go",
+        "jsonlog.go",
+        "log.go",
+        "logfile.go",
+        "logfile_windows.go",
+        "reqid.go",
+        "server.go",
+        "signal.go",
+        "sigpipe.go",
+        "sigpipe_windows.go",
+        "stopsig.go",
+        "stopsig_windows.go",
+        "systemd.go",
+    ],
+    importmap = "github.com/atpons/straightforward/vendor/github.com/cybozu-go/well",
+    importpath = "github.com/cybozu-go/well",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/cybozu-go/log:go_default_library",
+        "//vendor/github.com/cybozu-go/netutil:go_default_library",
+        "//vendor/github.com/spf13/pflag:go_default_library",
+        "//vendor/github.com/spf13/viper:go_default_library",
+    ],
+)

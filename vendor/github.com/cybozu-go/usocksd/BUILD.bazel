@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "address_group.go",
+        "config.go",
+        "dialer.go",
+        "ruleset.go",
+        "server.go",
+    ],
+    importmap = "github.com/atpons/straightforward/vendor/github.com/cybozu-go/usocksd",
+    importpath = "github.com/cybozu-go/usocksd",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/BurntSushi/toml:go_default_library",
+        "//vendor/github.com/cybozu-go/log:go_default_library",
+        "//vendor/github.com/cybozu-go/usocksd/socks:go_default_library",
+        "//vendor/github.com/cybozu-go/well:go_default_library",
+    ],
+)

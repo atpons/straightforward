@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "defs.go",
+        "doc.go",
+        "request.go",
+        "server.go",
+        "socks4.go",
+        "socks5.go",
+    ],
+    importmap = "github.com/atpons/straightforward/vendor/github.com/cybozu-go/usocksd/socks",
+    importpath = "github.com/cybozu-go/usocksd/socks",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/cybozu-go/log:go_default_library",
+        "//vendor/github.com/cybozu-go/netutil:go_default_library",
+        "//vendor/github.com/cybozu-go/well:go_default_library",
+    ],
+)

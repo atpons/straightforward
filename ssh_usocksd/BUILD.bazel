@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["server.go"],
+    importpath = "github.com/atpons/straightforward/ssh_usocksd",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/cybozu-go/usocksd:go_default_library",
+        "//vendor/github.com/cybozu-go/usocksd/socks:go_default_library",
+        "//vendor/github.com/cybozu-go/well:go_default_library",
+        "//vendor/github.com/nbio/contextual:go_default_library",
+        "//vendor/golang.org/x/crypto/ssh:go_default_library",
+    ],
+)

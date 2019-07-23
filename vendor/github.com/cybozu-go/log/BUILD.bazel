@@ -1,0 +1,26 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "constants.go",
+        "default.go",
+        "doc.go",
+        "err.go",
+        "error_handler.go",
+        "error_handler_windows.go",
+        "fluentd.go",
+        "formatter.go",
+        "json.go",
+        "level.go",
+        "logfmt.go",
+        "logger.go",
+        "msgpack.go",
+        "plain.go",
+        "reopen.go",
+    ],
+    importmap = "github.com/atpons/straightforward/vendor/github.com/cybozu-go/log",
+    importpath = "github.com/cybozu-go/log",
+    visibility = ["//visibility:public"],
+    deps = ["//vendor/github.com/pkg/errors:go_default_library"],
+)
