@@ -12,6 +12,7 @@ import (
 	"github.com/cybozu-go/usocksd"
 	"github.com/cybozu-go/well"
 	"golang.org/x/crypto/ssh"
+	"golang.org/x/net/proxy"
 )
 
 func privateKeyFile(file string) ssh.AuthMethod {
@@ -34,6 +35,7 @@ var (
 	sshKey    = flag.String("i", "/root/.ssh/id_rsa", "ssh key file")
 	sshServer = flag.String("h", "localhost:22", "ssh server")
 	port      = flag.Int("p", 9090, "listen port")
+	proxyHost = flag.String("ocproxy", "", "ocproxy host")
 )
 
 func main() {
@@ -45,14 +47,32 @@ func main() {
 			privateKeyFile(*sshKey),
 		},
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-		Timeout:         5 * time.Second,
+		Timeout:         10 * time.Second,
 	}
-
-	serverConn, err := ssh.Dial("tcp", *sshServer, sshConfig)
-	if err != nil {
-		log.Fatal(err)
+	if *proxyHost == "" {
+		log.Println("no proxy mode")
+		serverConn, err := ssh.Dial("tcp", *sshServer, sshConfig)
+		if err != nil {
+			log.Fatal(err)
+		}
+		startStraightforward(serverConn)
+	} else {
+		log.Println("run ocproxy mode")
+		p, err := proxy.SOCKS5("tcp", *proxyHost, nil, proxy.Direct)
+		if err != nil {
+			log.Fatal(err)
+		}
+		pc, err := p.Dial("tcp", *sshServer)
+		conn, ch, req, err := ssh.NewClientConn(pc, *sshServer, sshConfig)
+		if err != nil {
+			log.Fatal(err)
+		}
+		c := ssh.NewClient(conn, ch, req)
+		startStraightforward(c)
 	}
+}
 
+func startStraightforward(serverConn *ssh.Client) {
 	c := &usocksd.Config{
 		Incoming: usocksd.IncomingConfig{
 			Port:      *port,
@@ -71,7 +91,7 @@ func main() {
 	}
 	g.Run()
 
-	err = well.Wait()
+	err := well.Wait()
 	if err != nil && !well.IsSignaled(err) {
 		_ = serverConn.Close()
 		log.Fatal(err)

@@ -10,6 +10,7 @@ go_library(
         "//vendor/github.com/cybozu-go/usocksd:go_default_library",
         "//vendor/github.com/cybozu-go/well:go_default_library",
         "//vendor/golang.org/x/crypto/ssh:go_default_library",
+        "//vendor/golang.org/x/net/proxy:go_default_library",
     ],
 )
 
