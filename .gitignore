@@ -15,4 +15,4 @@ bazel-*
 *.out
 
 # under development
-Makefile
+/Makefile.dev
