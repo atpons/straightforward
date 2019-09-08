@@ -4,6 +4,8 @@ straightforward
 Minimal SOCKS proxy over SSH.
 
 ## Build
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fatpons%2Fstraightforward.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fatpons%2Fstraightforward?ref=badge_shield)
+
 ```shell
 $ bazel build cmd/straightforward
 ```
@@ -52,3 +54,7 @@ You can use SOCKS5 proxy behind connection for SSH server (like ocproxy).
 $ bazel run cmd/straighforward -- -i <SSH Private Key> -u <SSH User> -h <Destination SSH Server>:<Port> -p <Listen SOCKS Proxy Port> -ocproxy <Local SOCKS Server>:<Port>
 ```
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fatpons%2Fstraightforward.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fatpons%2Fstraightforward?ref=badge_large)
